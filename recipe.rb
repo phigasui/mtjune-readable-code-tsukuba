@@ -1,4 +1,7 @@
 #!/usr/bin/ruby
 
+recipe_file = File.open("recipe_data.txt", "r")
 
-print "オムライス\n"
+while dish_name = recipe_file.gets
+  print dish_name
+end
