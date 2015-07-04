@@ -1,12 +1,15 @@
 #!/usr/bin/ruby
 
+require 'json'
 
-recipe_file = File.open("recipe_data.txt", "r")
-recipe_array = Array.new
+$recipe_array = JSON.parse(File.open("recipe_data.json").read)
 
-# レシピファイルを読み込み
-while dish_name = recipe_file.gets
-  recipe_array.push(dish_name.chomp)
+
+
+# idを指定してレシピを表示
+def print_recipe(id)
+  recipe_hash = $recipe_array[id]
+  print recipe_hash["name"] + " " + recipe_hash["description"] + "\n"
 end
 
 
@@ -17,11 +20,10 @@ user_input_string = gets.chomp
 
 # 入力が無かった場合
 if user_input_string == ""
-  recipe_array.each_with_index do |recipe_name, id|
-    string_to_print = id.to_s + ": " + recipe_name
-    print string_to_print + "\n"
+  $recipe_array.each_with_index do |recipe_hash, id|
+    print_recipe(id)
   end
 end
 
 # 入力があった場合
-print recipe_array[user_input_string.to_i] + "\n"
+print print_recipe(user_input_string.to_i)
