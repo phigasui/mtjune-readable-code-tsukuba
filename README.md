@@ -4,4 +4,4 @@
 
 ##実行手順
 
-```ruby recipe.rb```
+```$ruby recipe.rb```
