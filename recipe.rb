@@ -11,7 +11,8 @@ $recipes_array = JSON.parse(File.open("recipe_data.json").read)
 # レシピid -> void
 def print_recipe(id, user_name)
   recipe_hash = $recipes_array[user_name][id]
-  print recipe_hash["name"] + " " + recipe_hash["description"] + "\n"
+  print((id+1).to_s + ": " +
+        recipe_hash["name"] + " " + recipe_hash["description"] + "\n")
 end
 
 
@@ -23,7 +24,10 @@ print "IDを入力してエンターを押してください. IDを指定しな�
 user_input_string = gets.chomp
 
 if user_input_string == ""  # 入力が無かった場合
-
+  # unless user_name in recipes_array.keys
+  #   puts "user not found"
+  #   exit()
+  # end
   $recipes_array[user_name].each_with_index do |recipe_hash, id|
     print_recipe(id, user_name)
   end
