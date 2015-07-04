@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# coding: utf-8
 
 require 'json'
 
@@ -8,25 +9,27 @@ $recipes_array = JSON.parse(File.open("recipe_data.json").read)
 
 # idを指定してレシピを表示するメソッド
 # レシピid -> void
-def print_recipe(id)
-  recipe_hash = $recipes_array[id]
+def print_recipe(id, user_name)
+  recipe_hash = $recipes_array[user_name][id]
   print recipe_hash["name"] + " " + recipe_hash["description"] + "\n"
 end
 
 
 # ユーザの入力
+puts "user_name: "
+user_name = gets.chomp
+
 print "IDを入力してエンターを押してください. IDを指定しない場合はそのままエンターを押してください.\n"
 user_input_string = gets.chomp
 
-
 if user_input_string == ""  # 入力が無かった場合
 
-  $recipes_array.each_with_index do |recipe_hash, id|
-    print_recipe(id)
+  $recipes_array[user_name].each_with_index do |recipe_hash, id|
+    print_recipe(id, user_name)
   end
 
 else  # 入力があった場合
 
-  print print_recipe(user_input_string.to_i)
+  print print_recipe(user_input_string.to_i, user_name)
 
 end
